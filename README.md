@@ -78,3 +78,7 @@ ga('set', 'dimension1', dimensionValue);
 ```
 3. You'll need to pass the value of your test to the front end somehow. If there are already custom dimensions being set on your site you may be able to filter the output to add your new dimension. If there are none, you could use `wp_localize_script()` to attach your value to the `window` object and then set the dimension based on that `window` property.
 4. Once the demension is set you can configure custom reports to evaluate traffic based on that dimension. You can also filter reports to only show a subset of dimension values.
+
+## Overriding your cache group
+
+The test base class has an `override_cache_group()` method which makes it possible to override your cache group for any test, so you can test either variant at will. To do so, append a querystring parameter to any URL on the site with the format `?group-{cache-group}={group-key}`.
