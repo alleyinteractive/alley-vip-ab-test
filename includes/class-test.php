@@ -56,8 +56,7 @@ abstract class Test {
 	private function __construct() {
 		if ( empty( $this->cache_group ) || empty( $this->a_group_key ) || empty( $this->b_group_key ) ) {
 			$message = 'You must set a cache group as well as group keys for class ' . get_called_class();
-			error_log( $message );
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		// Register the cache group.
@@ -124,7 +123,7 @@ abstract class Test {
 
 		// Still not in a group, we should set one.
 		if ( empty( $this->user_group ) ) {
-			$this->set_user_group( $data = [] );
+			$this->set_user_group( [] );
 			Vary_Cache::set_group_for_user( $this->cache_group, $this->user_group );
 		}
 	}
@@ -135,8 +134,8 @@ abstract class Test {
 	private function override_cache_group() {
 		$key = 'group-' . $this->cache_group;
 
-		if ( ! empty( $_GET[ $key ] ) ) {
-			$override_value = sanitize_text_field( $_GET[ $key ] );
+		if ( ! empty( $_GET[ $key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$override_value = sanitize_text_field( $_GET[ $key ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			// Place the user into the requested group, if it is a valid group.
 			if ( $override_value === $this->a_group_key || $override_value === $this->b_group_key ) {
