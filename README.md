@@ -1,15 +1,17 @@
 # Alley VIP AB Test plugin
-A helper for setting up cache varying for A/B tests in the WordPress.com VIP environment.
+A helper package for setting up cache varying for A/B tests in the WordPress.com VIP environment.
 
 ## Assumptions
-* This plugin assumes that you're running in a WordPress.com VIP environment or an environment set up to work like one, with the [vip-go-mu-plugins](https://github.com/Automattic/vip-go-mu-plugins) repository installed.
-* This plugin works with VIP's cache varying functionality, which will use a segmentation cookie to determine which group a user is in for any given test. You don't need to be using VIP's cache to set and read the cookie, as long as their cache plugin is available to be loaded. However, if you're behind another full page cache that is not VIP's, the plugin will not work.
+* This package assumes that you're running in a WordPress.com VIP environment or an environment set up to work like one, with the [vip-go-mu-plugins](https://github.com/Automattic/vip-go-mu-plugins) repository installed.
+* This package works with VIP's cache varying functionality, which will use a segmentation cookie to determine which group a user is in for any given test. You don't need to be using VIP's cache to set and read the cookie, as long as their cache plugin is available to be loaded. However, if you're behind another full page cache that is not VIP's, the cache varying will not work.
 
 ## Set up
-1. Install this plugin in your `plugins` directory and load it as early as reasonable. In a VIP-compatible environment, `client-mu-plugins/plugin-loader.php` is an appropriate place.
+1. Install this package in your project and load it as early as reasonable. In a VIP-compatible environment, `client-mu-plugins/plugin-loader.php` is an appropriate place.
 2. Extend the `Test` class with a class which sets up the required properties and method. The base class is a singleton, and thus your extending class will be, as well. See an example test class below.
-3. Load and instantiate your test class after this plugin has loaded. It may be appropriate to do so in the functions file of your theme, or at the root of a project-specific plugin. Wherever you choose to do so, instantiate before any template output has been rendered. The cache varying will be set up when you instantiate, and that must happen before any Headers are sent to the browser.
+3. Load and instantiate your test class after this package has loaded. It may be appropriate to do so in the functions file of your theme, or at the root of a project-specific plugin. Wherever you choose to do so, instantiate before any template output has been rendered. The cache varying will be set up when you instantiate, and that must happen before any Headers are sent to the browser.
 4. Use the `get_user_group()` method to determine which group the current user is assigned to and make decisions in the template, notify Google Analytics via a custom dimension, etc...
+
+Note - If this package is installed via composer it will include an autoloader, which will load the base class automatically when your test class is instantiated.
 
 ### An example test class
 
