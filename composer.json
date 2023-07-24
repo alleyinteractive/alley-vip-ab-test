@@ -1,7 +1,7 @@
 {
     "name": "alleyinteractive/alley-vip-ab-test",
-    "description": "A helper plugin for setting up cache varying for A/B tests in the WordPress.com VIP environment.",
-    "type": "wordpress-plugin",
+    "description": "A helper package for setting up cache varying for A/B tests in the WordPress.com VIP environment.",
+    "type": "library",
     "keywords": [
         "ab-test",
         "alleyinteractive",
@@ -29,16 +29,17 @@
         },
         "sort-packages": true
     },
+    "extra": {
+        "wordpress-autoloader": {
+            "autoload": {
+                "Alley_VIP_AB_Test\\": "src"
+            }
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "phpcbf": "phpcbf .",
-        "phpcs": "phpcs .",
-        "phpunit": "phpunit",
-        "phpstan": "phpstan --memory-limit=512M",
-        "test": [
-            "@phpcs",
-            "@phpunit"
-        ]
+        "phpcs": "phpcs ."
     }
 }
