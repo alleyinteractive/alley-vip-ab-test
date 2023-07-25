@@ -130,6 +130,8 @@ abstract class Test {
 
 	/**
 	 * Possibly override a user's group in response to querystring parameters.
+	 * Makes a querystring override function available for all tests.
+	 * Format: `?group-{cache-group}={group-key}`
 	 */
 	private function override_cache_group() {
 		$key = 'group-' . $this->cache_group;
