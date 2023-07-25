@@ -137,14 +137,17 @@ abstract class Test {
 		// Check if we've set a group by query string.
 		$override_value = ! empty( $_GET[ $key ] ) ? $override_value = sanitize_text_field( $_GET[ $key ] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		// If we haven't set a group via query string, maybe set one via option.
-		if ( empty( $override_value ) ) {
+		// If we haven't set a group via query string, or we set an invalid one, maybe set one via option.
+		if (
+			empty( $override_value )
+			|| ! in_array( $override_value, [ $this->a_group_key, $this->b_group_key ], true )
+		) {
 			$override_value = get_option( 'ab-select-group-' . $this->cache_group );
 		}
 
 		if ( ! empty( $override_value ) ) {
 			// Place the user into the requested group if it is a valid group.
-			if ( $override_value === $this->a_group_key || $override_value === $this->b_group_key ) {
+			if ( in_array( $override_value, [ $this->a_group_key, $this->b_group_key ], true ) ) {
 				$this->user_group = $override_value;
 				Vary_Cache::set_group_for_user( $this->cache_group, $this->user_group );
 			}
