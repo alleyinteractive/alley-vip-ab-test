@@ -1,0 +1,45 @@
+{
+    "name": "alleyinteractive/alley-vip-ab-test",
+    "description": "A helper package for setting up cache varying for A/B tests in the WordPress.com VIP environment.",
+    "type": "library",
+    "keywords": [
+        "ab-test",
+        "alleyinteractive",
+        "alley-vip-ab-test"
+    ],
+    "homepage": "https://github.com/alleyinteractive/alley-vip-ab-test",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Scott Nelle",
+            "email": "scott@alley.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "alleyinteractive/composer-wordpress-autoloader": "^1.0"
+    },
+    "require-dev": {
+        "alleyinteractive/alley-coding-standards": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "alleyinteractive/composer-wordpress-autoloader": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "wordpress-autoloader": {
+            "autoload": {
+                "Alley_VIP_AB_Test\\": "src"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "phpcbf": "phpcbf .",
+        "phpcs": "phpcs ."
+    }
+}
